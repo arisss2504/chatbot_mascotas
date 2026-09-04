@@ -1,5 +1,7 @@
-# Chatbot sobre Cuidados de Mascotas
+# ======================================================
+# 🤖 CHATBOT — CUIDADOS DE MASCOTAS
 # Interfaz gráfica con Tkinter
+# ======================================================
 
 import tkinter as tk
 from tkinter import scrolledtext
@@ -15,22 +17,34 @@ def obtener_respuesta(mensaje):
         (r"hola|buenos días|buenas tardes|buenas noches",
          "¡Hola! 🐶 Bienvenido/a al asistente de cuidados de mascotas. ¿En qué te puedo ayudar hoy?"),
         
-        (r"alimentar|comida|alimentación|qué come",
-         "La alimentación depende del animal:\n🐶 Perro: 2 comidas al día, balanceado de buena calidad.\n🐱 Gato: Alimento específico, rico en proteínas.\n🐰 Conejo: Principalmente heno y verduras frescas."),
+        (r"alimentar|comida|alimentación|qué come|alimentar",
+         "🥩 La alimentación depende del animal:\n"
+         "🐶 Perro: 2 comidas al día, alimento balanceado de buena calidad.\n"
+         "🐱 Gato: Alimento específico, rico en proteínas.\n"
+         "🐰 Conejo: Principalmente heno y verduras frescas."),
         
-        (r"vacuna|vacunas|cuándo vacunar",
-         "💉 Las vacunas son muy importantes:\n- Perros y gatos: vacuna contra rabia + vacuna polivalente desde las 8 semanas.\n- Refuerzo anual: una vez al año. Consulta siempre con tu veterinario."),
+        (r"vacuna|vacunas|cuándo vacunar|vacunación",
+         "💉 Las vacunas son muy importantes:\n"
+         "- Perros y gatos: vacuna contra rabia + vacuna polivalente desde las 8 semanas.\n"
+         "- Refuerzo: una vez al año. Consulta siempre con tu veterinario."),
         
-        (r"baño|bañar|cada cuánto baño",
-         "🛁 Frecuencia recomendada:\n- Perros: cada 1 o 2 meses.\n- Gatos: se limpian solos, baño solo si es necesario.\n- Usa siempre productos especiales para animales, NUNCA jabón de humanos."),
+        (r"baño|bañar|cada cuánto baño|higiene",
+         "🛁 Frecuencia recomendada:\n"
+         "- Perros: cada 1 o 2 meses.\n"
+         "- Gatos: se limpian solos, baño solo si es necesario.\n"
+         "⚠️ Usa siempre productos para animales, NUNCA jabón de humanos."),
         
-        (r"ejercicio|pasear|cuánto ejercicio",
-         "🏃‍♂️ El ejercicio varía por raza y edad:\n- Perros adultos: 2 paseos diarios de 30 min mínimo.\n- Razas pequeñas: menor exigencia.\n- Gatos: juego en casa con juguetes."),
+        (r"ejercicio|pasear|cuánto ejercicio|actividad",
+         "🏃 El ejercicio varía por raza y edad:\n"
+         "- Perros adultos: 2 paseos diarios de 30 minutos mínimo.\n"
+         "- Razas pequeñas: menor exigencia física.\n"
+         "- Gatos: juego en casa con juguetes."),
         
-        (r"enfermo|enferma|siento mal|llevar veterinario",
-         "⚠️ Si notas: falta de apetito, vómitos, diarrea, decaimiento o heridas → Llévalo al veterinario cuanto antes. No te automediques sin consultar."),
+        (r"enfermo|enferma|siento mal|vómito|diarrea|llevar veterinario",
+         "⚠️ Si notas: falta de apetito, vómitos, diarrea, decaimiento o heridas →\n"
+         "Llévalo al veterinario cuanto antes. ¡No le des medicamentos sin consultar!"),
         
-        (r"adiós|chao|hasta luego|gracias",
+        (r"gracias|adiós|chao|hasta luego|nos vemos",
          "¡Con gusto! 🐾 Cuida mucho a tu mascota. ¡Hasta pronto!"),
     ]
 
@@ -40,7 +54,8 @@ def obtener_respuesta(mensaje):
             return respuesta
 
     # Respuesta por defecto
-    return "Lo siento, no entiendo tu consulta. Pregúntame sobre: comida, vacunas, baños, ejercicio o salud de tu mascota 🐾"
+    return "Lo siento, no entiendo tu pregunta. Puedes preguntarme sobre: 🥩comida, 💉vacunas, 🛁baños, 🏃ejercicio o ⚠️salud de tu mascota."
+
 
 # ---------------------- INTERFAZ GRÁFICA ----------------------
 def enviar_mensaje():
@@ -53,13 +68,13 @@ def enviar_mensaje():
     chat.insert(tk.END, f"Tú: {texto_usuario}\n", "usuario")
     chat.yview(tk.END)
 
-    # Obtener y mostrar respuesta
+    # Obtener y mostrar respuesta del bot
     respuesta = obtener_respuesta(texto_usuario)
     chat.insert(tk.END, f"Bot: {respuesta}\n\n", "bot")
     chat.yview(tk.END)
     chat.config(state=tk.DISABLED)
 
-    # Limpiar entrada
+    # Limpiar campo de entrada
     entrada.delete(0, tk.END)
 
 
@@ -69,21 +84,22 @@ ventana.title("🐾 Chatbot — Cuidados de Mascotas")
 ventana.geometry("550x600")
 ventana.resizable(True, True)
 
-# Área del chat
+# Área del historial del chat
 chat = scrolledtext.ScrolledText(ventana, wrap=tk.WORD, font=("Arial", 11))
 chat.pack(padx=10, pady=10, fill=tk.BOTH, expand=True)
 chat.config(state=tk.DISABLED)  # Solo lectura
 
-# Colores para mensajes
+# Colores para diferenciar mensajes
 chat.tag_config("usuario", foreground="#2c3e50", font=("Arial", 11, "bold"))
 chat.tag_config("bot", foreground="#27ae60", font=("Arial", 11))
 
 # Mensaje de bienvenida
 chat.config(state=tk.NORMAL)
-chat.insert(tk.END, "Bot: ¡Hola! 🐾 Soy tu asistente sobre cuidados de mascotas.\nPregúntame sobre comida, vacunas, baños, ejercicio o salud.\n\n", "bot")
+chat.insert(tk.END, "Bot: ¡Hola! 🐾 Soy tu asistente sobre cuidados de mascotas.\n"
+                     "Pregúntame sobre comida, vacunas, baños, ejercicio o salud.\n\n", "bot")
 chat.config(state=tk.DISABLED)
 
-# Marco de entrada
+# Campo de entrada y botón
 marco = tk.Frame(ventana)
 marco.pack(padx=10, pady=(0, 10), fill=tk.X)
 
@@ -95,8 +111,9 @@ boton = tk.Button(marco, text="Enviar", command=enviar_mensaje,
                   bg="#3498db", fg="white", font=("Arial", 10, "bold"))
 boton.pack(side=tk.RIGHT)
 
-# Permitir enviar con Enter
+# Permitir enviar presionando la tecla Enter
 ventana.bind("<Return>", lambda e: enviar_mensaje())
 
-# Ejecutar app
+# Ejecutar la aplicación
 ventana.mainloop()
+
